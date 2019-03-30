@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Muli:300" rel="stylesheet">      
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <title>Alexandra Cortez - Home</title>
+    <style>
+    	canvas {
+    		border: 1px solid black;
+    	}
+    </style>
+</head>
+<body onresize="reSize()">
+
+
+<main id="main" class="text-container">
+	<canvas id="canvas" width="700" height="500"></canvas><br/>
+	<label>Color picker <br/><input type="color" id="bgcolor" value="#ffffff" onchange="newColor(this)" /></label>
+</main>
+
+<script>
+	// set initial values and get context
+	var canvas = document.getElementById("canvas"); 
+	var ctx = canvas.getContext("2d");
+	var x;
+	var y;
+	var color = "red";
+	var size = 5;
+
+	// resize and clear canvas on window resize
+	function reSize(){
+		var w = document.documentElement.clientWidth;
+		var h = document.documentElement.clientHeight;
+		console.log(w, h);
+		canvas.setAttribute("width", w * 0.8);
+		canvas.setAttribute("height", h * 0.8);
+		clear();
+	}
+
+	// clears canvas
+	function clear(){
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	}
+
+	// draws a single circle at (x,y) in <color> <size>
+    function draw(x, y, color, size){
+		ctx.fillStyle = color;
+		ctx.beginPath();
+		ctx.arc(x, y, size, 0, 2 * Math.PI);
+		ctx.fill();
+	}
+
+	// gets color from color picker
+	function newColor(input){
+		color = input.value;
+	}
+
+	// draw new circle at mouse position
+	window.addEventListener('mousemove', function(e) {
+		x = e.pageX;
+		y = e.pageY;
+
+		draw(x, y, color, size);
+	})
+
+	// change colors and clear on keydowns
+	window.addEventListener('keydown', function(e){
+		console.log(e.keyCode);
+		if(e.keyCode == 66){
+			color = "blue";
+		}
+		if(e.keyCode == 71){
+			color = "green";
+		}
+		if(e.keyCode == 82){
+			color = "red";
+		}
+		if(e.keyCode == 89){
+			color = "yellow";
+		}
+		if(e.keyCode == 38){
+			size = size + 5; 
+		}
+		if(e.keyCode == 40){
+			size = size - 5; 
+			if(size <= 0){}
+				size = 1;	
+		}
+		if(e.keyCode == 32){
+			clear();
+		}
+	})
+
+</script>
+</body>
+
+</html>
