@@ -66,6 +66,13 @@
 
 		draw(x, y, color, size);
 	})
+	//testing for mobile
+	window.addEventListener('mousedown', function(e) {
+		x = e.pageX;
+		y = e.pageY;
+
+		draw(x, y, color, size);
+	})
 
 	// change colors and clear on keydowns
 	window.addEventListener('keydown', function(e){
